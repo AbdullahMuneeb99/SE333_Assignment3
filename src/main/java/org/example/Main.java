@@ -1,7 +1,7 @@
 package org.example;
 
 import org.apache.maven.model.Resource;
-import org.example.Pattern.EmptyCatch;
+import org.example.Pattern.*;
 import org.example.Util.ModelUtil;
 
 import java.awt.*;
@@ -26,13 +26,19 @@ public class Main {
         // Define the path to the Java file to be analyzed
         Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "java","org","example","Resource","BuggyFile.java");
         // Initialize the ModelUtil instance with the specified Java file
-        ModelUtil model = new ModelUtil(path);
+        ModelUtil model = new ModelUtil(Paths.get("src/main/java/org/example/Resource/BuggyFile.java"));
 
         // Create a custom static analysis rule (EmptyCatch in this case)
         final EmptyCatch rule1 = new EmptyCatch(model);
 
         // Apply the rule to the parsed Java file
-        model.addRuleToAnalyze(rule1);
+        model.addRuleToAnalyze(new EmptyCatch(model));
+        model.addRuleToAnalyze(new EmptyMethod(model));
+        model.addRuleToAnalyze(new NullPointerPattern(model));
+        model.addRuleToAnalyze(new AlwaysTrueCondition(model));
+        model.addRuleToAnalyze(new IncorrectStringComparison(model));
+        model.addRuleToAnalyze(new FileNotClosed(model));
+        model.addRuleToAnalyze(new DivisionByZero(model));
 
         // Apply analysis
         model.runAnalysis();

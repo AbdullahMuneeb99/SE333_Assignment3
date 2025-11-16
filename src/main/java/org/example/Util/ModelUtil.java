@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class ModelUtil{
 
     // Initialize the Spoon Launcher instance for parsing Java source code
-    private static final Launcher launcher = new Launcher();
-    final Factory factory = launcher.getFactory();
-    private CtModel model; // The parsed Abstract Syntax Tree (AST) of the Java source code
-    ArrayList<AbstractPattern> rules = new ArrayList<>(); // List to hold custom analysis rules (processors)
+    private Launcher launcher = new Launcher();
+    private Factory factory = launcher.getFactory();
+    private final CtModel model; // The parsed Abstract Syntax Tree (AST) of the Java source code
+    private final ArrayList<AbstractPattern> rules = new ArrayList<>(); // List to hold custom analysis rules (processors)
 
     /**
      * Constructs a ModelUtil instance and parses the specified Java file into an AST.
@@ -30,13 +30,17 @@ public class ModelUtil{
      */
     public ModelUtil(Path path) {
         // Add the Java file to be parsed by Spoon
+        // Create a new fresh Launcher for each ModelUtil instance
+        launcher = new Launcher();
         launcher.addInputResource(path.toString());
 
         // Configure the environment settings for the launcher
         configureLauncherEnvironment();
 
         // Run the launcher to parse the Java file and generate the AST
-        model = launcher.buildModel();
+        this.model = launcher.buildModel();
+
+        this.factory = launcher.getFactory();
     }
 
     public CtModel getModel(){

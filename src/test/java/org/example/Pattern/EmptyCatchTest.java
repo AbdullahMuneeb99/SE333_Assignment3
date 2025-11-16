@@ -14,23 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmptyCatchTest {
 
     @Test
-    @Disabled
-    @DisplayName("Write you test here. Rename the test method")
-    public void test(){
+    @DisplayName("TN: No Empty Methods in CleanFile.java")
+    public void testEmptyMethod_TN() {
 
-       // Define the path to the Java file to be analyzed
-        Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "java","org","example","Resource",
-                "BuggyFile.java");
-        // Initialize the ModelUtil instance with the specified Java file
+        Path path = Paths.get(System.getProperty("user.dir"), "src", "main", "java", "org", "example", "Resource",
+                "CleanFile.java");
+
         ModelUtil model = new ModelUtil(path);
-
-        // Create a custom static analysis rule (EmptyCatch in this case)
-        final EmptyCatch rule = new EmptyCatch(model);
-        // Apply the rule to the parsed Java file
+        final EmptyMethod rule = new EmptyMethod(model);
         rule.process();
-        //
+
         List<AbstractPattern.elementSchema> res = rule.getDetection();
 
-        //TODO - write your test here.
+        assertTrue(res.isEmpty(), "Expected no empty methods to be detected");
     }
 }

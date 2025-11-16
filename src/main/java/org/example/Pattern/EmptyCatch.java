@@ -17,7 +17,7 @@ public class EmptyCatch extends AbstractPattern {
     // Log message that will be used for the empty catch blocks.
     String logMessage = "Empty Catch Block";
 
-    // The CtModel object that contains the entire abstract syntax tree of the parsed Java code.
+    // The CtModel object
     CtModel model;
 
     // Constructor that takes a ModelUtil object and initializes the CtModel field.
@@ -33,17 +33,17 @@ public class EmptyCatch extends AbstractPattern {
         // Get all the catch blocks (CtCatch) in the CtModel.
         List<CtCatch> catches = model.getElements(new TypeFilter<>(CtCatch.class));
 
-        // Iterate through each catch block found.
+        // Iterating through each catch block found.
         for (CtCatch c : catches) {
-            // Check if the catch block body is empty (no statements inside).
+            // Checking if the catch block body is empty (no statements inside).
             if (c.getBody().getStatements().isEmpty()) {
                 // If empty, add it to the 'elements' list.
                 elements.add(new elementSchema(
-                        logMessage,                         // Message indicating the issue.
-                        c.getPosition().getFile().getName(), // File name where the empty catch is located.
-                        c.getPosition().getLine(),          // Start line of the catch block.
-                        c.getPosition().getEndLine(),      // End line of the catch block.
-                        c.toString()                       // String representation of the catch block (or relevant code).
+                        logMessage,
+                        c.getPosition().getFile().getName(),
+                        c.getPosition().getLine(),
+                        c.getPosition().getEndLine(),
+                        c.toString()
                 ));
             }
         }
