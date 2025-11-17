@@ -2,16 +2,16 @@ package org.example.Pattern;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.example.Pattern.AlwaysTrueCondition;
+import org.example.Pattern.AbstractPattern;
 
-public class AlwaysTrueConditionTest {
+public class AbstractPatternTest {
 
     @Test
-    public void testProcess() {
+    public void testPrint() {
         // Test void method executes without error
-        AlwaysTrueCondition obj = new AlwaysTrueCondition();
+        AbstractPattern obj = new AbstractPattern();
         assertDoesNotThrow(() -> {
-            obj.process();
+            obj.print();
         });
     }
 }
